@@ -1,33 +1,52 @@
 package de.hs.da.hskleinanzeigen.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Timestamp;
 
+
+enum Type{
+    Offer, Request
+        }
 @Entity
 public class Ad {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
-    private Enum type;
+    @Column(name ="type", columnDefinition = "ENUM('Offer', 'Request')")
+    @Enumerated(value = EnumType.STRING)
+    private Type type;
     private String title;
-    private Integer category_id;
     private String description;
     private float price;
     private String location;
-    private String timestamp;
+    @ManyToOne
+    private Category category;
+    private Timestamp created;
 
-    public Ad(Integer id, Enum type, Integer category_id, String title, String description, float price, String location, String timestamp) {
+    public Ad(Integer id, Type type, String title, String description, float price, String location,Category category, Timestamp created) {
         this.id = id;
         this.type = type;
-        this.category_id = category_id;
         this.title = title;
         this.description = description;
         this.price = price;
         this.location = location;
-        this.timestamp = timestamp;
+        this.category = category;
+        this.created = created;
+    }
+
+    protected Ad() {
+
+    }
+
+
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Integer getId() {
@@ -38,20 +57,12 @@ public class Ad {
         this.id = id;
     }
 
-    public Enum getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(Enum type) {
+    public void setType(Type type) {
         this.type = type;
-    }
-
-    public Integer getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
     }
 
     public String getTitle() {
@@ -86,11 +97,11 @@ public class Ad {
         this.location = location;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public Timestamp getCreated() {
+        return created;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setCreated(Timestamp created) {
+        this.created = created;
     }
 }
