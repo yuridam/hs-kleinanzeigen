@@ -4,18 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 
-enum Type{
-    Offer, Request
-        }
 @Entity
 public class Ad {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     @Column(name ="type", columnDefinition = "ENUM('Offer', 'Request')")
     @Enumerated(value = EnumType.STRING)
-    private Type type;
+    private AdType type;
     private String title;
     private String description;
     private float price;
@@ -24,7 +21,7 @@ public class Ad {
     private Category category;
     private Timestamp created;
 
-    public Ad(Integer id, Type type, String title, String description, float price, String location,Category category, Timestamp created) {
+    public Ad(Integer id, AdType type, String title, String description, float price, String location,Category category, Timestamp created) {
         this.id = id;
         this.type = type;
         this.title = title;
@@ -57,11 +54,11 @@ public class Ad {
         this.id = id;
     }
 
-    public Type getType() {
+    public AdType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(AdType type) {
         this.type = type;
     }
 
