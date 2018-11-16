@@ -1,12 +1,22 @@
 package de.hs.da.hskleinanzeigen;
 
+import de.hs.da.hskleinanzeigen.model.Ad;
+import de.hs.da.hskleinanzeigen.model.AdType;
+import de.hs.da.hskleinanzeigen.model.Category;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
+import java.sql.Timestamp;
+
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -17,7 +27,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdControllerIT {
 
-    @Autowired
+
+
+    @Mock
     AdRepository adRepository;
 
     @Autowired
@@ -28,24 +40,34 @@ public class AdControllerIT {
 
 
 
+
     @Test
     public void getExistingAd() throws Exception {
 
-        String uri = "/api/advertisements/1";
+        Integer newAdId = 1; //write id to search
+        String uri = "/api/advertisements/" + newAdId;
         mockMvc.perform(MockMvcRequestBuilders.get(uri)
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json("{\"id\":1,\"type\":\"Offer\",\"title\":\"4er WG\",\"description\":\"schön\",\"price\":555.0,\"location\":\"ffm\",\"category\":{\"id\":1,\"name\":\"Wohnung\",\"parent_id\":1},\"created\":\"2018-11-20T12:00:00.000+0000\"}"));
+                .andExpect(content().json("{\"id\":1,\"type\":\"Offer\",\"title\":\"WG Zimmer\",\"description\":\"teuer\",\"price\":2000.0,\"location\":\"Darmstadt\",\"category\":{\"id\":1,\"name\":\"Wohnung\",\"parent_id\":null},\"created\":\"2018-11-08T15:20:46.000+0000\"}\n" +
+                        ""));
     }
 
     @Test
-    public void getNonExistingAd() throws Exception {
+    public void createNewAd() throws Exception {
+        String json = "{\"type\":\"Offer\",\"title\":\"Laptop Racer\",\"description\":\"mit ssd\",\"price\":1000.0,\"location\":\"Wiesbaden\",\"category\":{\"id\":14}}";
+        String uri = "/api/advertisements";
+        mockMvc.perform(MockMvcRequestBuilders.post(uri)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON).content(json))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andDo(MockMvcResultHandlers.print())
+                ;
 
-        String uri = "/api/advertisements/455";
-        mockMvc.perform(MockMvcRequestBuilders.get(uri)
-                .accept(MediaType.ALL))
-                .andExpect(status().is5xxServerError());
+    }
 
-         }
+
+
 }
