@@ -1,6 +1,6 @@
 package de.hs.da.hskleinanzeigen.api;
 
-import de.hs.da.hskleinanzeigen.exception.ExceptionInterceptor;
+import de.hs.da.hskleinanzeigen.exception.AdExceptionInterceptor;
 import de.hs.da.hskleinanzeigen.persistence.AdvertisementEntity;
 import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
 import de.hs.da.hskleinanzeigen.type.AdvertisementType;
@@ -19,12 +19,12 @@ public class AdvertisementController {
     // Get Advertisement details
     @GetMapping(produces = "application/json", path = "/advertisements/{id}")
     public @ResponseBody
-    AdvertisementEntity findAdvertisementById(@PathVariable Integer id) throws ExceptionInterceptor {
-        return advertisementRepository.findById(id).orElseThrow(() -> new ExceptionInterceptor(id));
+    AdvertisementEntity findAdvertisementById(@PathVariable Integer id) throws AdExceptionInterceptor {
+        return advertisementRepository.findById(id).orElseThrow(() -> new AdExceptionInterceptor(id));
     }
 
     // Create new Advertisement
-    @PostMapping(consumes = "application/json", path = "/advertisements/")
+    @PostMapping(consumes = "application/json", path = "/advertisements")
     AdvertisementEntity insertAdvertisement(@RequestBody final AdvertisementEntity newAdvertisement) {
         return advertisementRepository.save(newAdvertisement);
     }
