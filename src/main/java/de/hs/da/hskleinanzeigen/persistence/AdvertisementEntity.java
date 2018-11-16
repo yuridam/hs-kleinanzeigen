@@ -1,50 +1,48 @@
-package de.hs.da.hskleinanzeigen.model;
+package de.hs.da.hskleinanzeigen.persistence;
+
+import de.hs.da.hskleinanzeigen.type.AdvertisementType;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
-
-@Entity
-public class Ad {
+@Entity(name = "ad")
+public class AdvertisementEntity {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name ="type", columnDefinition = "ENUM('Offer', 'Request')")
+
+    @Column(name = "type", columnDefinition = "ENUM('Offer', 'Request')")
     @Enumerated(value = EnumType.STRING)
-    private AdType type;
-    private String title;
-    private String description;
-    private float price;
-    private String location;
+    private AdvertisementType type;
+
     @ManyToOne
-    private Category category;
+    private CategoryEntity category;
+
+    private String title;
+
+    private String description;
+
+    private float price;
+
+    private String location;
+
     private Timestamp created;
 
-    public Ad(Integer id, AdType type, String title, String description, float price, String location,Category category, Timestamp created) {
+    public AdvertisementEntity(Integer id, AdvertisementType type, CategoryEntity category, String title, String description, float price, String location, Timestamp created) {
         this.id = id;
         this.type = type;
+        this.category = category;
         this.title = title;
         this.description = description;
         this.price = price;
         this.location = location;
-        this.category = category;
         this.created = created;
     }
 
-    protected Ad() {
-
+    protected AdvertisementEntity() {
     }
 
-
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 
     public Integer getId() {
         return id;
@@ -54,12 +52,20 @@ public class Ad {
         this.id = id;
     }
 
-    public AdType getType() {
+    public AdvertisementType getType() {
         return type;
     }
 
-    public void setType(AdType type) {
+    public void setType(AdvertisementType type) {
         this.type = type;
+    }
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 
     public String getTitle() {
