@@ -1,8 +1,10 @@
 package de.hs.da.hskleinanzeigen;
 
-import de.hs.da.hskleinanzeigen.model.Ad;
-import de.hs.da.hskleinanzeigen.model.AdType;
-import de.hs.da.hskleinanzeigen.model.Category;
+import de.hs.da.hskleinanzeigen.api.AdvertisementController;
+import de.hs.da.hskleinanzeigen.api.model.Advertisement;
+import de.hs.da.hskleinanzeigen.exception.AdExceptionInterceptor;
+import de.hs.da.hskleinanzeigen.persistence.AdvertisementEntity;
+import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,19 +23,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class AdControllerUT {
 
     @InjectMocks
-    private AdController adController;
+    private AdvertisementController adController;
 
     @Mock
-    private AdRepository adRepository;
+    private AdvertisementRepository adRepository;
 
 
     //Check if mockAd in the repository equals with the one that the controller found
     @Test
-    void findAdById() throws AdNotFoundException {
-    Ad mockAd = Mockito.mock(Ad.class);
+    void findAdById() throws AdExceptionInterceptor {
+    AdvertisementEntity mockAd = Mockito.mock(AdvertisementEntity.class);
     Mockito.when(adRepository.findById(mockAd.getId())).thenReturn(java.util.Optional.ofNullable(mockAd));
 
-    assertEquals(adRepository.findById(mockAd.getId()).get(), adController.findAdById(mockAd.getId()));
+    assertEquals(adRepository.findById(mockAd.getId()).get(), adController.findAdvertisementById((mockAd.getId())));
 
 
 
@@ -44,14 +46,14 @@ class AdControllerUT {
     @Test
     void findAdByIdNotExist() {
 
-        Ad mockAd = Mockito.mock(Ad.class);
+        AdvertisementEntity mockAd = Mockito.mock(AdvertisementEntity.class);
         Mockito.when(adRepository.findById(mockAd.getId())).thenReturn(java.util.Optional.ofNullable(mockAd));
 
         Integer dummyAdId = mockAd.getId();
 
 
-        assertThrows(AdNotFoundException.class,
-                () -> adController.findAdById(9999));
+        assertThrows(AdExceptionInterceptor.class,
+                () -> adController.findAdvertisementById(9999));
 
     }
 }
