@@ -1,21 +1,19 @@
 package de.hs.da.hskleinanzeigen;
 
-import de.hs.da.hskleinanzeigen.model.Ad;
-import de.hs.da.hskleinanzeigen.model.AdType;
-import de.hs.da.hskleinanzeigen.model.Category;
-import org.junit.jupiter.api.BeforeEach;
+import de.hs.da.hskleinanzeigen.api.AdvertisementController;
+
+import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.sql.Timestamp;
 
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -25,15 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 
-public class AdControllerIT {
+public class AdvertisementControllerIT {
 
 
 
     @Mock
-    AdRepository adRepository;
+    AdvertisementRepository adRepository;
 
     @Autowired
-    AdController adController;
+    AdvertisementController adController;
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,7 +48,7 @@ public class AdControllerIT {
                 .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(content().json("{\"id\":1,\"type\":\"Offer\",\"title\":\"WG Zimmer\",\"description\":\"teuer\",\"price\":2000.0,\"location\":\"Darmstadt\",\"category\":{\"id\":1,\"name\":\"Wohnung\",\"parent_id\":null},\"created\":\"2018-11-08T15:20:46.000+0000\"}\n" +
+                .andExpect(content().json("{\"id\":1,\"type\":\"Offer\",\"category\":{\"id\":1,\"parentId\":null,\"name\":\"Wohnung\"},\"title\":\"WG Zimmer\",\"description\":\"teuer\",\"price\":2000.0,\"location\":\"Darmstadt\",\"created\":\"2018-11-08T15:20:46.000+0000\"}" +
                         ""));
     }
 

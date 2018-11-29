@@ -16,6 +16,8 @@ public class AdvertisementController {
     @Autowired
     private AdvertisementRepository advertisementRepository;
 
+
+
     // Get Advertisement details
     @GetMapping(produces = "application/json", path = "/advertisements/{id}")
     public @ResponseBody

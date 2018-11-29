@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class AdControllerUT {
+class AdvertisementControllerUT {
 
     @InjectMocks
     private AdvertisementController adController;
