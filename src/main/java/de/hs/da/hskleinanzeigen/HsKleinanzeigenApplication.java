@@ -43,7 +43,7 @@ public class HsKleinanzeigenApplication {
 
     }
 
-    void addCategory(String name){
+    void addCategory(String name) {
         Integer existingid = null;
         Iterable<CategoryEntity> allCategories = categoryRepository.findAll();
         for (CategoryEntity category : allCategories) {
@@ -57,7 +57,7 @@ public class HsKleinanzeigenApplication {
 
     }
 
-    void addSubCategory(String name, String parentName){
+    void addSubCategory(String name, String parentName) {
         Integer existingId = null;
         CategoryEntity parentCat = null;
         Iterable<CategoryEntity> allCategories = categoryRepository.findAll();
@@ -82,7 +82,7 @@ public class HsKleinanzeigenApplication {
 
     }
 
-    void addAds(String title, String location, Float price, String desc, AdvertisementType type, String category){
+    void addAds(String title, String location, Float price, String desc, AdvertisementType type, String category) {
         Integer existingid = null;
         CategoryEntity catObj = null;
         Iterable<CategoryEntity> allCategories = categoryRepository.findAll();
@@ -109,17 +109,9 @@ public class HsKleinanzeigenApplication {
     }
 
 
-
-
-
     public static void main(String[] args) {
 
-
         SpringApplication.run(HsKleinanzeigenApplication.class, args);
-
-
-
-
 
     }
 }
