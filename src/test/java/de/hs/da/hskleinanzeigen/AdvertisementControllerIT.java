@@ -1,21 +1,16 @@
 package de.hs.da.hskleinanzeigen;
 
-import de.hs.da.hskleinanzeigen.model.Ad;
-import de.hs.da.hskleinanzeigen.model.AdType;
-import de.hs.da.hskleinanzeigen.model.Category;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
+import de.hs.da.hskleinanzeigen.api.AdvertisementController;
+import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockMultipartHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
-import java.sql.Timestamp;
 
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -25,15 +20,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 
-public class AdControllerIT {
+class AdControllerIT {
 
 
-
-    @Mock
-    AdRepository adRepository;
 
     @Autowired
-    AdController adController;
+    AdvertisementRepository adRepository;
+
+    @Autowired
+    AdvertisementController adController;
 
     @Autowired
     private MockMvc mockMvc;

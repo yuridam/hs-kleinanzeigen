@@ -1,18 +1,16 @@
 package de.hs.da.hskleinanzeigen;
 
 import de.hs.da.hskleinanzeigen.api.AdvertisementController;
-import de.hs.da.hskleinanzeigen.api.model.Advertisement;
+
 import de.hs.da.hskleinanzeigen.exception.AdExceptionInterceptor;
 import de.hs.da.hskleinanzeigen.persistence.AdvertisementEntity;
 import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Timestamp;
