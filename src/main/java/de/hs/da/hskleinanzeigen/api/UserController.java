@@ -22,11 +22,19 @@ public class UserController {
     private UserRepository userRepository;
 
 
-
-    // Create new Advertisement
+    // Create new user
     @PostMapping(consumes = "application/json", path = "/users")
-    UserEntity newUser(@RequestBody final UserEntity newUser) {
-        return userRepository.save(newUser);
+    public ResponseEntity newUser(@RequestBody final UserEntity newUser) {
+
+        Iterable<UserEntity> allUsers = userRepository.findAll();
+        for (UserEntity user : allUsers) {
+            if (user.getEmail().equals(newUser.getEmail())) {
+                return new ResponseEntity(HttpStatus.CONFLICT);
+
+            }
+        }
+
+        return new ResponseEntity<>(userRepository.save(newUser), HttpStatus.OK);
     }
 
 
