@@ -58,7 +58,22 @@ class AdControllerIT {
 
     @Test
     public void createNewAd() throws Exception {
-        String json = "{\"type\":\"Offer\",\"title\":\"Laptop Racer\",\"description\":\"mit ssd\",\"price\":1000.0,\"location\":\"Wiesbaden\",\"category\":{\"id\":14}}";
+        String json = "{\n" +
+                "    \"type\": \"Offer\",\n" +
+                "    \"category\": {\n" +
+                "        \"id\": 4,\n" +
+                "        \"name\": \"WG\",\n" +
+                "        \"parentId\": {\n" +
+                "            \"id\": 2,\n" +
+                "            \"name\": \"Wohnung\",\n" +
+                "            \"parentId\": null\n" +
+                "        }\n" +
+                "    },\n" +
+                "    \"title\": \"1 Zimmer in 6er WG\",\n" +
+                "    \"description\": \"sehr guenstig\",\n" +
+                "    \"price\": 200,\n" +
+                "    \"location\": \"Darmstadt\"\n" +
+                "}";
         String uri = "/api/advertisements";
         mockMvc.perform(MockMvcRequestBuilders.post(uri)
                 .contentType(MediaType.APPLICATION_JSON)
