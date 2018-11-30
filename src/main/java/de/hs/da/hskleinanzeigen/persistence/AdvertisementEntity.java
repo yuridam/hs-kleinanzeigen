@@ -40,7 +40,7 @@ public class AdvertisementEntity {
         this.created = created;
     }
 
-    protected AdvertisementEntity() {
+    public AdvertisementEntity() {
     }
 
 

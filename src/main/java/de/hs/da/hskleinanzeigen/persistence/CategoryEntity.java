@@ -5,20 +5,21 @@ import javax.persistence.*;
 @Entity(name = "category")
 public class CategoryEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer parentId;
+    @ManyToOne
+    private CategoryEntity parent;
 
     private String name;
 
-    public CategoryEntity(Integer id, Integer parentId, String name) {
+    public CategoryEntity(Integer id, CategoryEntity parent, String name) {
         this.id = id;
-        this.parentId = parentId;
+        this.parent = parent;
         this.name = name;
     }
 
-    protected CategoryEntity() {
+    public CategoryEntity() {
     }
 
     public Integer getId() {
@@ -29,12 +30,12 @@ public class CategoryEntity {
         this.id = id;
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public CategoryEntity getParentId() {
+        return parent;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setParentId(CategoryEntity parentId) {
+        this.parent = parentId;
     }
 
     public String getName() {
