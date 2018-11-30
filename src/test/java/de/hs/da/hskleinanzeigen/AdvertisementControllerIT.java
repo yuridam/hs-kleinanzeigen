@@ -1,8 +1,10 @@
 package de.hs.da.hskleinanzeigen;
 
-import de.hs.da.hskleinanzeigen.model.Ad;
-import de.hs.da.hskleinanzeigen.model.AdType;
-import de.hs.da.hskleinanzeigen.model.Category;
+import de.hs.da.hskleinanzeigen.api.AdvertisementController;
+import de.hs.da.hskleinanzeigen.persistence.AdvertisementEntity;
+import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
+import de.hs.da.hskleinanzeigen.type.AdvertisementType;
+import de.hs.da.hskleinanzeigen.persistence.CategoryEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,15 +27,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 
-public class AdControllerIT {
+class AdControllerIT {
 
 
 
     @Mock
-    AdRepository adRepository;
+    public AdvertisementRepository adRepository;
 
     @Autowired
-    AdController adController;
+    AdvertisementController adController;
 
     @Autowired
     private MockMvc mockMvc;
