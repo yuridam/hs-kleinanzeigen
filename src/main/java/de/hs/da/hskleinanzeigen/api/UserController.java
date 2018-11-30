@@ -8,10 +8,13 @@ import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
 import de.hs.da.hskleinanzeigen.repository.UserRepository;
 import de.hs.da.hskleinanzeigen.type.AdvertisementType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 
 @RestController
@@ -30,11 +33,17 @@ public class UserController {
         for (UserEntity user : allUsers) {
             if (user.getEmail().equals(newUser.getEmail())) {
                 return new ResponseEntity(HttpStatus.CONFLICT);
-
             }
+
         }
 
-        return new ResponseEntity<>(userRepository.save(newUser), HttpStatus.OK);
+        //return new ResponseEntity<>(userRepository.save(newUser), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userRepository.save(newUser), HttpStatus.OK);
+        } catch (DataIntegrityViolationException ex) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "Incomplete data", ex);
+        }
     }
 
 
