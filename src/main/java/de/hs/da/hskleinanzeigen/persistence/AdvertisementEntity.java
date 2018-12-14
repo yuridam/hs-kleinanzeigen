@@ -5,16 +5,21 @@ import de.hs.da.hskleinanzeigen.type.AdvertisementType;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+
 @Entity(name = "ad")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type")
 public class AdvertisementEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /*
     @Column(name = "type", columnDefinition = "ENUM('Offer', 'Request')")
     @Enumerated(value = EnumType.STRING)
     private AdvertisementType type;
+    */
 
     @ManyToOne
     private CategoryEntity category;
@@ -29,9 +34,9 @@ public class AdvertisementEntity {
 
     private Timestamp created;
 
-    public AdvertisementEntity(Integer id, AdvertisementType type, CategoryEntity category, String title, String description, float price, String location, Timestamp created) {
+    public AdvertisementEntity(Integer id, CategoryEntity category, String title, String description, float price, String location, Timestamp created) {
         this.id = id;
-        this.type = type;
+        //this.type = type;
         this.category = category;
         this.title = title;
         this.description = description;
@@ -52,6 +57,7 @@ public class AdvertisementEntity {
         this.id = id;
     }
 
+    /*
     public AdvertisementType getType() {
         return type;
     }
@@ -59,7 +65,7 @@ public class AdvertisementEntity {
     public void setType(AdvertisementType type) {
         this.type = type;
     }
-
+    */
     public CategoryEntity getCategory() {
         return category;
     }
@@ -84,6 +90,7 @@ public class AdvertisementEntity {
         this.description = description;
     }
 
+
     public float getPrice() {
         return price;
     }
@@ -91,6 +98,7 @@ public class AdvertisementEntity {
     public void setPrice(float price) {
         this.price = price;
     }
+
 
     public String getLocation() {
         return location;

@@ -2,12 +2,19 @@ package de.hs.da.hskleinanzeigen.api;
 
 import de.hs.da.hskleinanzeigen.exception.AdExceptionInterceptor;
 import de.hs.da.hskleinanzeigen.persistence.AdvertisementEntity;
+import de.hs.da.hskleinanzeigen.persistence.OfferEntity;
+import de.hs.da.hskleinanzeigen.persistence.RequestEntity;
 import de.hs.da.hskleinanzeigen.repository.AdvertisementRepository;
+import de.hs.da.hskleinanzeigen.repository.OfferRepository;
+import de.hs.da.hskleinanzeigen.repository.RequestRepository;
 import de.hs.da.hskleinanzeigen.type.AdvertisementType;
+import org.hibernate.type.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+
+import static java.sql.Types.NULL;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -15,6 +22,14 @@ public class AdvertisementController {
 
     @Autowired
     private AdvertisementRepository advertisementRepository;
+
+    @Autowired
+    private OfferRepository offerRepository;
+
+    @Autowired
+    private RequestRepository requestRepository;
+
+
 
 
 
@@ -27,17 +42,41 @@ public class AdvertisementController {
 
     // Create new Advertisement
     @PostMapping(consumes = "application/json", path = "/advertisements")
-    AdvertisementEntity insertAdvertisement(@RequestBody final AdvertisementEntity newAdvertisement) {
-        return advertisementRepository.save(newAdvertisement);
+    AdvertisementEntity insertAdvertisement(@RequestBody final AdvertisementEntity newAd) {
+
+        if(newAd.getPrice() > 0.0) {
+            OfferEntity newOffer = new OfferEntity();
+            newOffer.setTitle(newAd.getTitle());
+            newOffer.setPrice(newAd.getPrice());
+            newOffer.setCategory(newAd.getCategory());
+            newOffer.setCreated(newAd.getCreated());
+            newOffer.setLocation(newAd.getLocation());
+            newOffer.setDescription(newAd.getDescription());
+            return offerRepository.save(newOffer);
+        }
+
+        else {
+            RequestEntity newRequest = new RequestEntity();
+            newRequest.setTitle(newAd.getTitle());
+            newRequest.setPrice(NULL);
+            newRequest.setCategory(newAd.getCategory());
+            newRequest.setCreated(newAd.getCreated());
+            newRequest.setLocation(newAd.getLocation());
+            newRequest.setDescription(newAd.getDescription());
+            return requestRepository.save(newRequest);
+        }
     }
+
+
 
     // Get all Advertisements
     @GetMapping(path = "/alladvertisements")
     public @ResponseBody
     Iterable<AdvertisementEntity> getAllAds() {
-        return advertisementRepository.findAll();
+        return advertisementRepository.findThemAll();
     }
 
+    /*
     // Search an Advertisement
     @GetMapping(path = "/advertisements")
     public @ResponseBody
@@ -59,6 +98,7 @@ public class AdvertisementController {
         }
         return foundAdvertisements;
     }
+    */
 
     // Test Path
     @GetMapping(path = "/test")

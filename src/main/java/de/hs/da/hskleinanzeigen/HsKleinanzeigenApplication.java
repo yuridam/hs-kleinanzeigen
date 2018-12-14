@@ -21,6 +21,7 @@ public class HsKleinanzeigenApplication {
     @Autowired
     AdvertisementRepository advertisementRepository;
 
+    /*
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
         System.out.println("kontol bgst");
@@ -42,6 +43,7 @@ public class HsKleinanzeigenApplication {
 
 
     }
+    */
 
     void addCategory(String name) {
         Integer existingid = null;
@@ -82,6 +84,7 @@ public class HsKleinanzeigenApplication {
 
     }
 
+    /*
     void addAds(String title, String location, Float price, String desc, AdvertisementType type, String category) {
         Integer existingid = null;
         CategoryEntity catObj = null;
@@ -107,7 +110,7 @@ public class HsKleinanzeigenApplication {
         advertisementRepository.save(newAd);
 
     }
-
+*/
 
     public static void main(String[] args) {
 
