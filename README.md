@@ -32,7 +32,7 @@ This is designed as a backend for classified ads website with the following feat
     "parentId": null
 }
 ```
-- Create new category as category (**POST** /api/categories)
+- Create new category as sub category (**POST** /api/categories)
 ```
 {
     "name": "Smartphones",
