@@ -9,6 +9,21 @@ This is designed as a backend for classified ads website with the following feat
 
 
 ## List of REST Endpoints
+### User
+- Add a new user (**POST** /api/users)
+```
+{
+    "email": "test@testmail.de",
+    "password": "testpass",
+    "first_name": "Test",
+    "last_name": "Testman",
+    "phone": "12345678",
+    "location": "Testtown",
+}
+```
+- List all items in a user's wishlist (**GET** /api/users)
+- Get a specific user details (**GET** /api/users/{userId})
+
 ### Category
 - Create new category without super category (**POST** /api/categories)
 ```
@@ -60,17 +75,4 @@ This is designed as a backend for classified ads website with the following feat
 - List all items in a user's wishlist (**GET** /api/users/{userId}/notepad)
 - Delete an item in a user's wishlist (**DELETE** /api/users/{userId}/notepad/{id})
 
-### User
-- Add a new user (**POST** /api/users)
-```
-{
-    "email": "test@testmail.de",
-    "password": "testpass",
-    "first_name": "Test",
-    "last_name": "Testman",
-    "phone": "12345678",
-    "location": "Testtown",
-}
-```
-- List all items in a user's wishlist (**GET** /api/users)
-- Get a specific user details (**GET** /api/users/{userId})
+
