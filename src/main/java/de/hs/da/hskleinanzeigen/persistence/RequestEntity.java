@@ -7,4 +7,5 @@ import javax.persistence.Entity;
 @DiscriminatorValue("Request")
 public class RequestEntity extends AdvertisementEntity {
 
+
 }

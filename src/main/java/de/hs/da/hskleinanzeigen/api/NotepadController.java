@@ -78,6 +78,6 @@ public class NotepadController {
             return new ResponseEntity(HttpStatus.NO_CONTENT);
 }
         }
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
     }
 }

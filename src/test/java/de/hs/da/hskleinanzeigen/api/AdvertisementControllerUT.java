@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
 
@@ -49,8 +50,8 @@ class AdvertisementControllerUT {
         Integer dummyAdId = mockAd.getId();
 
 
-        assertThrows(AdExceptionInterceptor.class,
-                () -> adController.findAdvertisementById(9999));
+        assertThrows(ResponseStatusException.class,
+                () -> adController.findAdvertisementById(dummyAdId));
 
     }
 }
