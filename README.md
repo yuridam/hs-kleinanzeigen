@@ -60,6 +60,7 @@ This is designed as a backend for classified ads website with the following feat
 ```
 - List all advertisements (**GET** /api/advertisements)
 - Get a specific advertisement details (**GET** /api/advertisements/{id})
+- Find all items with given parameters (**GET** /api/advertisements?param1=value1&param2=value2)
 
 ### Wishlist
 - Add new item in a user's wishlist (**POST** /api/users/{userId}/notepad)
